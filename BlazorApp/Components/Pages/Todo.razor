@@ -6,7 +6,6 @@
 <ul>
     @foreach (var todo in todos) 
     {
-        
         <li>
             <input type="checkbox" @bind="todo.IsDone" />
             <input @bind="todo.Title" />
@@ -14,7 +13,7 @@
     }
 </ul>
 
-<input @bind="newTodo" />
+<input @bind="newTodo"/>
 <button @onclick="AddTodo">Add To Do Item</button>
 
 @code {
