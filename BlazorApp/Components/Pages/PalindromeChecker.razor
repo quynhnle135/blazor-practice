@@ -1,0 +1,37 @@
+@page "/palindrome"
+@rendermode InteractiveServer
+
+<h1 style="color: blue;">Palindrome Checker</h1>
+
+<div>
+    <input type="text" placeholder="Enter your string" @bind="InputText">
+    <button style="border: none; border-radius: 5px; background-color: blue; color: white;" @onclick="CheckPalindrome">Check</button>
+</div>
+
+@* Result Message *@
+
+@if (ResultMessage != null) {
+    <h3 style="color: blue;">@ResultMessage</h3>
+}
+
+@code {
+    private string InputText { get; set; } = string.Empty;
+    private string ResultMessage { get; set; } = "";
+
+    void CheckPalindrome() {
+        if (IsPalindrome(InputText)) {
+            ResultMessage = $"The string \'{InputText}\' IS a PALINDROME";
+        } else {
+            ResultMessage = $"The string \'{InputText}\' is NOT a PALINDROME";
+        }
+    }
+
+    bool IsPalindrome(string text) {
+        if (string.IsNullOrWhiteSpace(text)) {
+            return false;
+        }
+        // Remove white space and convert to lower
+        var cleanedText = new string(text.Where(char.IsLetterOrDigit).ToArray()).ToLower();
+        return cleanedText.SequenceEqual(cleanedText.Reverse());
+    }
+}
