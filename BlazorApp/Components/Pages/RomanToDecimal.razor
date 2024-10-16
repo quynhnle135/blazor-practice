@@ -1,65 +1,60 @@
 @page "/roman"
 @rendermode InteractiveServer
 
-<h1 style="color: orange">Roman to Decimal Converter</h1>
+<h1 style="color: orange;">Roman-To-Decimal Converter</h1>
 
 <div>
-    <input type="text" placeholder="Enter your Romanian number" @bind="roman" />
-    <button @onclick="DecimalResult">Convert</button>
+    <input type="text" placeholder="Enter Roman numeral" @bind="roman">
+    <button style="border: none; border-radius: 5px; background-color: orange; color: white;" @onclick="RomanResult">Convert</button>
 </div>
 
-@* Decimal Result Message *@
-<h3>@DecimalResultMessage</h3>
-
+<h3 style="color: white; background-color: orange;">@RomanResultMessage</h3>
 @code {
     private string roman { get; set; } = string.Empty;
-    string DecimalResultMessage { get; set; } = "";
+    private string RomanResultMessage { get; set; } = "";
 
-    bool IsValidRomanNumeral(string roman) {
+    bool IsValidRoman(string roman) {
         foreach (char c in roman) {
             if (!"IVXLCDM".Contains(c)) {
                 return false;
             }
         }
         return true;
-    }
-    int ConvertToDecimal(string roman) {
-        // Convert roman number to upper
+    } 
+
+    int ConvertToRoman(string roman) {
         var upperRoman = roman.ToUpper();
 
-        // Validate input to contain only valid Roman numeral characters
-        if (!IsValidRomanNumeral(upperRoman)) {
-            DecimalResultMessage = "Invalid Roman Numeral";
+        if (!IsValidRoman(upperRoman)) {
+            RomanResultMessage = "Invalid Roman Numeral";
             return -1;
         }
 
-        Dictionary<char, int> RomanToDecimal = new Dictionary<char, int>() {
-        {'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}
+        Dictionary<char, int> romanMap = new Dictionary<char, int>() {
+            { 'I', 1 }, { 'V', 5 }, { 'X', 10 }, { 'L', 50 }, { 'C', 100 }, { 'D', 500 }, {'M', 1000}
         };
 
         int result = 0;
-
         for (int i = 0; i < upperRoman.Length; i++) {
-            if ((i + 1 < upperRoman.Length) && (RomanToDecimal[upperRoman[i]] < RomanToDecimal[upperRoman[i + 1]])) {
-                result += RomanToDecimal[upperRoman[i + 1]] - RomanToDecimal[upperRoman[i]];
-                // Skip the next symbol
+            if ((i + 1 < upperRoman.Length) && (romanMap[upperRoman[i + 1]] < romanMap[upperRoman[i]])) {
+                result += romanMap[upperRoman[i + 1]] - romanMap[upperRoman[i]];
                 i++;
             } else {
-                result += RomanToDecimal[upperRoman[i]];
+                result += romanMap[upperRoman[i]];
             }
         }
-        return result;
-    }
 
-    void DecimalResult() {
-        if(string.IsNullOrWhiteSpace(roman)) {
-            DecimalResultMessage = "Please enter a Roman numeral.";
+        return result;
+
+    }
+    void RomanResult() {
+        if (string.IsNullOrWhiteSpace(roman)) {
+            RomanResultMessage = "Please enter a Roman numeral";
         }
 
-        var decimalNumber = ConvertToDecimal(roman);
-        
+        var decimalNumber = ConvertToRoman(roman);
         if (decimalNumber >= 0) {
-            DecimalResultMessage = $"Convert \'{roman}\' to Decimal we have: \'{decimalNumber}\'";
+            RomanResultMessage = $"Convert \'{roman}\' to Decimal we have: \'{decimalNumber}\'";
         }
     }
 }
