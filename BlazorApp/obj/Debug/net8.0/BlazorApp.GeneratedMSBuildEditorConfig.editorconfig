@@ -42,6 +42,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9QaXp6YUluZGV4UGFnZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/quinnle/blazor-practice/BlazorApp/Components/Pages/RomanToDecimal.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Sb21hblRvRGVjaW1hbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/quinnle/blazor-practice/BlazorApp/Components/Pages/ToDoList.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Ub0RvTGlzdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
